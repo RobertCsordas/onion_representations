@@ -1,0 +1,15 @@
+torch
+tqdm
+psutil
+matplotlib
+tensorboard
+wandb
+dataclasses
+pillow
+torchvision
+moviepy
+plotly
+python-hostlist
+scipy
+scikit-learn
+sentencepiece

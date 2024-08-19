@@ -1,0 +1,161 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "GRU repeat test",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-task", "gru_repeat", "-test_interval", "1000",
+                "-name", "gru_repeat_Test2", "-log", "tb", "-reset", "1",
+                "-batch_size", "128", "-lr", "1e-3", "-grad_clip", "100",
+                "-wd", "0.01", "-state_size", "512", "-var_analysis.embedding_size", "512",
+                "-load_pretrained_model", "../checkpoints/gru_repeat_ss512.pth",
+                "-var_analysis.model_train_steps", "0",
+                "-var_analysis.var_size", "32", "-var_analysis.mask", "1",
+            ]
+        },
+
+
+        {
+            "name": "GRU repeat test varlen",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-task", "gru_repeat", "-test_interval", "1000",
+                "-name", "ggghj_256", "-log", "tb", "-reset", "1",
+                "-batch_size", "256", "-lr", "1e-3", "-grad_clip", "100",
+                "-wd", "0.1", "-state_size", "256",
+                "-var_analysis.var_size", "28",
+                "-var_analysis.min_len", "2",
+                "-var_analysis.model_train_steps", "0",
+                "-var_analysis.no_input", "1"
+            ]
+        },
+
+        {
+            "name": "Tiny intervention",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-task", "gru_repeat", "-test_interval", "1000",
+                "-name", "tiny_intervention", "-log", "tb", "-reset", "1",
+                "-batch_size", "256", "-lr", "1e-3", "-grad_clip", "100",
+                "-wd", "0.1", "-state_size", "64",
+                "-var_analysis.var_size", "none",
+                "-var_analysis.min_len", "2",
+                "-var_analysis.model_train_steps", "0",
+                "-load_pretrained_model", "../checkpoints/gru_64_without_input_not_working.pth",
+                "-var_analysis.ngram", "3",
+                "-var_analysis.no_input", "1",
+                "-debug_plot_interval", "100",
+                "-var_analysis.intervention_model", "autosegment"
+            ]
+        },
+
+        {
+            "name": "Tiny intervention with input",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-task", "gru_repeat", "-test_interval", "1000",
+                "-name", "tiny_intervention_with_input", "-log", "tb", "-reset", "1",
+                "-batch_size", "256", "-lr", "1e-3", "-grad_clip", "100",
+                "-wd", "0.1", "-state_size", "64",
+                "-var_analysis.var_size", "none",
+                "-var_analysis.min_len", "2",
+                "-var_analysis.model_train_steps", "0",
+                "-load_pretrained_model", "../checkpoints/gru_64_with_input.pth",
+                "-var_analysis.ngram", "4",
+                "-var_analysis.no_input", "0"
+                "-debug_plot_interval", "100",
+                "-var_analysis.intervention_model", "autosegment"
+            ]
+        },
+
+        {
+            "name": "Vecsum repeat test",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-task", "vecsum_repeat", "-test_interval", "1000",
+                "-name", "vecsum_repeat_test2", "-log", "tb", "-reset", "1",
+                "-batch_size", "256", "-lr", "1e-3", "-grad_clip", "100",
+                "-wd", "0.01", "-state_size", "64", "-vecsum.gamma", "0.4"
+            ]
+        },
+
+        {
+            "name": "GRU decode",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-task", "gru_repeat_decode_seq", "-grad_clip", "none", "-lr", "1e-3", "-batch_size", "256", "-wd", "0.1",
+                "-var_analysis.min_len", "2", "-var_analysis.model_train_steps", "0", "-stop_after", "50000",
+                "-var_analysis.ngram", "2", "-state_size", "64", "-name", "gru_digit_decode",
+                "-log", "tb", "-reset", "1", "-amp", "0", "-var_analysis.no_input", "0",
+                "-decode.n_layers", "2", "-decode.type", "gru",
+                "-load_pretrained_model", "../checkpoints/gru_64_with_input.pth",
+                "-decode.gru.autoregressive", "0"
+            ]
+        }
+
+
+        {
+            "name": "GRU decode modified",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-task", "gru_repeat_magic_intervention", "-grad_clip", "none", "-lr", "1e-3", "-batch_size", "256", "-wd", "0.1",
+                "-var_analysis.min_len", "2", "-var_analysis.model_train_steps", "0", "-stop_after", "500000",
+                "-var_analysis.ngram", "2", "-state_size", "64", "-name", "gru_digit_magic",
+                "-log", "tb", "-reset", "1", "-amp", "0", "-var_analysis.no_input", "0",
+                "-decode.n_layers", "2",
+                "-magic_intervention.lin", "1",
+                "-load_pretrained_model", "../checkpoints/gru_64_with_input.pth"
+            ]
+        },
+
+        {
+            "name": "GRU exchange modified",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-task", "gru_repeat_magic_exchange", "-grad_clip", "none", "-lr", "1e-3", "-batch_size", "256", "-wd", "0.1",
+                "-var_analysis.min_len", "2", "-var_analysis.model_train_steps", "0", "-stop_after", "50000",
+                "-var_analysis.ngram", "2", "-state_size", "64", "-name", "gru_digit_magic",
+                "-log", "tb", "-reset", "1", "-amp", "0", "-var_analysis.no_input", "0",
+                "-decode.n_layers", "2",
+                "-magic_intervention.lin", "1", "-test_interval", "1000",
+                "-load_pretrained_model", "../checkpoints/gru_64_with_input.pth"
+            ]
+        }
+
+
+        {
+            "type": "debugpy",
+            "request": "launch",
+            "name": "Debug File",
+            "justMyCode": false,
+            "program": "${file}",
+            "cwd": "${fileDirname}"
+        },
+
+    ]
+}

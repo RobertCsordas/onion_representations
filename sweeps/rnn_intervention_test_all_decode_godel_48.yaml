@@ -1,0 +1,45 @@
+program: main.py
+command:
+  - ${env}
+  - python3
+  - ${program}
+  - ${args}
+method: grid
+metric:
+  name: validation/intervention/accuracy/total
+  goal: maximize
+parameters:
+  log:
+    value: wandb
+  task:
+    value: gru_repeat_decode_seq
+  grad_clip:
+    value: none
+  lr:
+    value: 1e-3
+  batch_size:
+    value: 256
+  wd:
+    value: 0.1
+  var_analysis.min_len:
+    value: 2
+  var_analysis.model_train_steps:
+    value: 40000
+  stop_after:
+    value: 100000
+  state_size:
+    value: 48
+  var_analysis.no_input:
+    values:
+      - 0
+      - 1
+  decode.type:
+    value: godel
+  sweep_id_for_grid_search:
+    distribution: categorical
+    values:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
